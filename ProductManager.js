@@ -4,10 +4,10 @@ class ProductManager {
   constructor() {
     this.path = "./Products.json"
     this.products = []
-    this.readJson()
+    this.getProducts()
   }
 
-  async readJson() {
+  async getProducts() {
     try {
       fs.promises.readFile(this.path, "utf8").then((data) => {
         console.log(`JSON ${this.path} leido correctamente`)
@@ -19,10 +19,6 @@ class ProductManager {
     }
   }
 
-  getProducts() {
-    this.readJson();
-    return this.products;
-  }
 
   getProductById(pid) {
     this.readJson();
