@@ -1,28 +1,24 @@
-const fs = require("fs")
+const fs = require("fs");
 
 class ProductManager {
   constructor() {
     this.path = "./Products.json"
-    this.products = []
-    this.getProducts()
+    this.products = this.getProducts()
   }
 
-  async getProducts() {
+  getProducts() {
     try {
-      fs.promises.readFile(this.path, "utf8").then((data) => {
-        console.log(`JSON ${this.path} leido correctamente`)
-        this.products = JSON.parse(data) || []
-        console.log("los productos son ", this.products)
-      });
+      const data = fs.readFileSync(this.path, "utf8")
+      return JSON.parse(data) || []
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
   }
 
-
   getProductById(pid) {
-    this.readJson();
-    return this.products.find((prod) => prod.id === pid) || "Not Found";
+    this.getProducts()
+    return this.products.find((prod) => prod.id === pid) || "Not Found"
   }
+
 }
 module.exports = ProductManager;
